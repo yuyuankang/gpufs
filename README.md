@@ -29,3 +29,14 @@ Then you will find the following files in the release folder:
 ├── mallocfree.o
 └── timer.o
 ```
+
+Another method:
+
+``` shell
+cd libgpufs
+make install
+```
+
+This will create 2 folders in the root directory: `lib` and `include`. The `lib` folder contains the `libgpufs.a` file and the `include` folder contains the header files.
+
+## run the examples

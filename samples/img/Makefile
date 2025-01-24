@@ -6,11 +6,12 @@ GPUFSDIR?=../../
 
 CXXFLAGS=-fopenmp -std=c++0x
 
-CUFLAGS =--std=c++11 -O3 -rdc=true -maxrregcount=32 -gencode arch=compute_35,code=sm_35
-LINKFLAGS = -O3 -rdc=true -gencode arch=compute_35,code=sm_35
+CUFLAGS =--std=c++11 -O3 -rdc=true -maxrregcount=32 -gencode arch=compute_80,code=sm_80
+LINKFLAGS = -O3 -rdc=true -gencode arch=compute_80,code=sm_80
 NVCC=$(CUDA_DIR)/bin/nvcc $(CUDAINC)
 
 GPUFSINC = $(GPUFSDIR)/include
+
 GPUFSLIBS = -lgpufs -L$(GPUFSDIR)/lib
 
 OBJS =	fs.o
