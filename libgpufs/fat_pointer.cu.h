@@ -485,7 +485,7 @@ public:
 				old = atomicAdd( pRefCount, numWants );
 				DBGT( "start", WARP_ID, old, threadIdx.x );
 			}
-			old = __shfl( old, 0 );
+			old = __shfl_sync(0xFFFFFFFF, old, 0 );
 
 			if( (old >= 0) && (line.fid == m_fid) && (line.virtPage == bHelper.l) )
 			{
@@ -510,7 +510,7 @@ public:
 						old = atomicCAS(pRefCount, 0, INT_MIN);
 						DBGT( "cas", WARP_ID, old, threadIdx.x );
 					}
-					old = __shfl( old, 0 );
+					old = __shfl_sync(0xFFFFFFFF, old, 0 );
 
 //					DBGT( "o", WARP_ID, old, threadIdx.x );
 
@@ -525,7 +525,7 @@ public:
 								old = atomicAdd( pRefCount, numWants );
 								DBGT( "retry", WARP_ID, old, threadIdx.x );
 							}
-							old = __shfl( old, 0 );
+							old = __shfl_sync(0xFFFFFFFF, old, 0 );
 
 							// Let's double check
 							if( (old >= 0) && (line.fid == m_fid) && (line.virtPage == bHelper.l) )
@@ -542,7 +542,7 @@ public:
 									old = atomicSub( pRefCount, numWants );
 									DBGT( "revert retry", WARP_ID, old, threadIdx.x );
 								}
-								old = __shfl( old, 0 );
+								old = __shfl_sync(0xFFFFFFFF, old, 0 );
 
 								continue;
 							}
@@ -604,7 +604,7 @@ public:
 				}
 			}
 
-			physical = __shfl( physical, 0 );
+			physical = __shfl_sync(0xFFFFFFFF, physical, 0 );
 
 			if( want )
 			{
@@ -906,7 +906,7 @@ public:
 			volatile void* ptr = gmmap_warp(NULL, FS_BLOCKSIZE, 0, bitfeild2Acc( m_ptr.accBits ), m_fid, bHelper.l << FS_LOGBLOCKSIZE, numWants);
 			int physical = ((size_t)ptr - (size_t)m_mem) >> FS_LOGBLOCKSIZE;
 
-			physical = __shfl( physical, 0 );
+			physical = __shfl_sync(0xFFFFFFFF, physical, 0 );
 
 			if( want )
 			{

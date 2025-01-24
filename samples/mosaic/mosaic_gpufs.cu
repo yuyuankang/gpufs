@@ -639,11 +639,11 @@ __global__ void mosaicKernelWarp(const char* histFileName, uchar *inOut, float* 
 
 			float myDiff = ( hist[k + laneID] - candHist ) * ( hist[k + laneID] - candHist );
 
-			myDiff += __shfl_down( myDiff, 16 );
-			myDiff += __shfl_down( myDiff, 8 );
-			myDiff += __shfl_down( myDiff, 4 );
-			myDiff += __shfl_down( myDiff, 2 );
-			myDiff += __shfl_down( myDiff, 1 );
+			myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 16 );
+			myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 8 );
+			myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 4 );
+			myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 2 );
+			myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 1 );
 
 			diff += myDiff;
 		}
@@ -1040,11 +1040,11 @@ __global__ void mosaicKernelVM(const char* histFileName, uchar *inOut, float* co
 
 				float myDiff = ( hist[k + laneID] - candHist ) * ( hist[k + laneID] - candHist );
 
-				myDiff += __shfl_down( myDiff, 16 );
-				myDiff += __shfl_down( myDiff, 8 );
-				myDiff += __shfl_down( myDiff, 4 );
-				myDiff += __shfl_down( myDiff, 2 );
-				myDiff += __shfl_down( myDiff, 1 );
+				myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 16 );
+				myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 8 );
+				myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 4 );
+				myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 2 );
+				myDiff += __shfl_down_sync(0xFFFFFFFF, myDiff, 1 );
 
 				diff += myDiff;
 			}

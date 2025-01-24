@@ -12,7 +12,7 @@ NVCC=$(CUDA_DIR)/bin/nvcc $(CUDAINC)
 
 GPUFSINC = $(GPUFSDIR)/include
 
-GPUFSLIBS = -lgpufs -L$(GPUFSDIR)/lib
+GPUFSLIBS = -lgpufs -L$(GPUFSDIR)lib
 
 OBJS =	fs.o
 
@@ -22,7 +22,8 @@ all: $(MAIN) \
 	 img_cpu
 
 $(MAIN): $(OBJS)
-	$(NVCC) $(LINKFLAGS) $(GPUFSLIBS) -o $(MAIN) $(OBJS) $(LDLIBS) $(LIBCUDA)
+	$(NVCC) $(LINKFLAGS) -o $(MAIN) $(OBJS) $(GPUFSLIBS) $(LIBCUDA)
+	# $(NVCC) $(LINKFLAGS) $(GPUFSLIBS) -o $(MAIN) $(OBJS) $(LDLIBS) $(LIBCUDA)
 
 img_cpu: img_cpu.o
 	$(CC) $(CXXFLAGS) -o $@ $<
