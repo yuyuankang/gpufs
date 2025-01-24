@@ -112,7 +112,7 @@ int main( int argc, char** argv)
 	double total_time=0;
 	size_t total_size;
 	
-	int device_number=2;
+	int device_number=0;
 	CUDA_SAFE_CALL(cudaSetDevice(device_number));
 
 	memset(time_res,0,MAX_TRIALS*sizeof(double));

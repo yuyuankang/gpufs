@@ -12,7 +12,7 @@
 This is a very basic matrix-vector multiply example where data is read/written from/to files
 
 To compile: 
-make fs
+make all
 
 To generate  input matrices, use bigmatrix_cpu.
 Note that the code assumes the input to perfectly match threadblock/grid dimensions.
